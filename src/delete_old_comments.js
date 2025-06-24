@@ -35,7 +35,7 @@ async function getExistingComments(github, options, context) {
 	} while (response.data.length === REQUESTED_COMMENTS_PER_PAGE)
 
 	return results.filter(
-		comment =>
+		(comment) =>
 			!!comment.user &&
 			(!options.title || comment.body.includes(options.title)) &&
 			comment.body.includes("Coverage Report"),

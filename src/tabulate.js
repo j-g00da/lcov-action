@@ -26,7 +26,7 @@ export function tabulate(lcov, options) {
 			(acc, key) => [
 				...acc,
 				toFolder(key, options),
-				...folders[key].map(file => toRow(file, key !== "", options)),
+				...folders[key].map((file) => toRow(file, key !== "", options)),
 			],
 			[],
 		)
@@ -36,11 +36,11 @@ export function tabulate(lcov, options) {
 
 function filterAndNormaliseLcov(lcov, options) {
 	return lcov
-		.map(file => ({
+		.map((file) => ({
 			...file,
 			file: normalisePath(file.file),
 		}))
-		.filter(file => shouldBeIncluded(file.file, options))
+		.filter((file) => shouldBeIncluded(file.file, options))
 }
 
 function shouldBeIncluded(fileName, options) {
@@ -62,7 +62,7 @@ function getStatement(file) {
 	const { branches, functions, lines } = file
 
 	return [branches, functions, lines].reduce(
-		function(acc, curr) {
+		function (acc, curr) {
 			if (!curr) {
 				return acc
 			}
@@ -108,17 +108,17 @@ function percentage(item) {
 
 function uncovered(file, options) {
 	const branches = (file.branches ? file.branches.details : [])
-		.filter(branch => branch.taken === 0)
-		.map(branch => branch.line)
+		.filter((branch) => branch.taken === 0)
+		.map((branch) => branch.line)
 
 	const lines = (file.lines ? file.lines.details : [])
-		.filter(line => line.hit === 0)
-		.map(line => line.line)
+		.filter((line) => line.hit === 0)
+		.map((line) => line.line)
 
 	const all = ranges([...branches, ...lines])
 
 	return all
-		.map(function(range) {
+		.map(function (range) {
 			const fragment =
 				range.start === range.end
 					? `L${range.start}`
@@ -139,7 +139,7 @@ function ranges(linenos) {
 
 	let last = null
 
-	linenos.sort().forEach(function(lineno) {
+	linenos.sort().forEach(function (lineno) {
 		if (last === null) {
 			last = { start: lineno, end: lineno }
 			return

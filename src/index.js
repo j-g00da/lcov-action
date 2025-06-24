@@ -26,14 +26,14 @@ async function main() {
 		core.getInput("delete-old-comments").toLowerCase() === "true"
 	const title = core.getInput("title")
 
-	const raw = await fs.readFile(lcovFile, "utf-8").catch(err => null)
+	const raw = await fs.readFile(lcovFile, "utf-8").catch((err) => null)
 	if (!raw) {
 		console.log(`No coverage report found at '${lcovFile}', exiting...`)
 		return
 	}
 
 	const baseRaw =
-		baseFile && (await fs.readFile(baseFile, "utf-8").catch(err => null))
+		baseFile && (await fs.readFile(baseFile, "utf-8").catch((err) => null))
 	if (baseFile && !baseRaw) {
 		console.log(`No coverage report found at '${baseFile}', ignoring...`)
 	}
@@ -93,7 +93,7 @@ async function main() {
 	}
 }
 
-main().catch(function(err) {
+main().catch(function (err) {
 	console.log(err)
 	core.setFailed(err.message)
 })
