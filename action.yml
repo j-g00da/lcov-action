@@ -1,4 +1,4 @@
-name: LCOV Code Coverage Report
+name: LCOV Code Coverage
 description: Comments a pull request with the code coverage
 author: Jagoda Ślązak
 branding:
