@@ -1,6 +1,6 @@
 import { promises as fs } from "fs"
-import core from "@actions/core"
-import { GitHub, context } from "@actions/github"
+import * as core from "@actions/core"
+import * as github from "@actions/github"
 import path from "path"
 
 import { parse } from "./lcov"
@@ -13,7 +13,7 @@ const MAX_COMMENT_CHARS = 65536
 
 async function main() {
 	const token = core.getInput("github-token")
-	const githubClient = new GitHub(token)
+	const githubClient = github.getOctokit(token)
 	const workingDir = core.getInput("working-directory") || "./"
 	const lcovFile = path.join(
 		workingDir,
@@ -39,30 +39,34 @@ async function main() {
 	}
 
 	const options = {
-		repository: context.payload.repository.full_name,
+		repository: github.context.payload.repository.full_name,
 		prefix: normalisePath(`${process.env.GITHUB_WORKSPACE}/`),
 		workingDir,
 	}
 
 	if (
-		context.eventName === "pull_request" ||
-		context.eventName === "pull_request_target"
+		github.context.eventName === "pull_request" ||
+		github.context.eventName === "pull_request_target"
 	) {
-		options.commit = context.payload.pull_request.head.sha
-		options.baseCommit = context.payload.pull_request.base.sha
-		options.head = context.payload.pull_request.head.ref
-		options.base = context.payload.pull_request.base.ref
-	} else if (context.eventName === "push") {
-		options.commit = context.payload.after
-		options.baseCommit = context.payload.before
-		options.head = context.ref
+		options.commit = github.context.payload.pull_request.head.sha
+		options.baseCommit = github.context.payload.pull_request.base.sha
+		options.head = github.context.payload.pull_request.head.ref
+		options.base = github.context.payload.pull_request.base.ref
+	} else if (github.context.eventName === "push") {
+		options.commit = github.context.payload.after
+		options.baseCommit = github.context.payload.before
+		options.head = github.context.ref
 	}
 
 	options.shouldFilterChangedFiles = shouldFilterChangedFiles
 	options.title = title
 
 	if (shouldFilterChangedFiles) {
-		options.changedFiles = await getChangedFiles(githubClient, options, context)
+		options.changedFiles = await getChangedFiles(
+			githubClient,
+			options,
+			github.context,
+		)
 	}
 
 	const lcov = await parse(raw)
@@ -70,23 +74,23 @@ async function main() {
 	const body = diff(lcov, baselcov, options).substring(0, MAX_COMMENT_CHARS)
 
 	if (shouldDeleteOldComments) {
-		await deleteOldComments(githubClient, options, context)
+		await deleteOldComments(githubClient, options, github.context)
 	}
 
 	if (
-		context.eventName === "pull_request" ||
-		context.eventName === "pull_request_target"
+		github.context.eventName === "pull_request" ||
+		github.context.eventName === "pull_request_target"
 	) {
 		await githubClient.issues.createComment({
-			repo: context.repo.repo,
-			owner: context.repo.owner,
-			issue_number: context.payload.pull_request.number,
+			repo: github.context.repo.repo,
+			owner: github.context.repo.owner,
+			issue_number: github.context.payload.pull_request.number,
 			body: body,
 		})
-	} else if (context.eventName === "push") {
+	} else if (github.context.eventName === "push") {
 		await githubClient.repos.createCommitComment({
-			repo: context.repo.repo,
-			owner: context.repo.owner,
+			repo: github.context.repo.repo,
+			owner: github.context.repo.owner,
 			commit_sha: options.commit,
 			body: body,
 		})
