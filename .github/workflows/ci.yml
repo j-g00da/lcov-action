@@ -40,6 +40,6 @@ jobs:
           path: coverage
 
       - name: LCOV report
-        uses: j-g00da/lcov-action@v0.5.0-alpha.0
+        uses: j-g00da/lcov-action@v0.5.0-alpha.1
         with:
           lcov-file: ./coverage/lcov.info
