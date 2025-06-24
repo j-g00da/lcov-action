@@ -1,7 +1,4 @@
-> [!WARNING]
-> This project is not actively maintained.
-
-# Lcov reporter action
+# Lcov action
 
 This action comments a pull request with a HTML test coverage report.
 
@@ -46,13 +43,14 @@ If included, will be added as a title for the comment produced.
 ## Example usage
 
 ```yml
-uses: romeovs/lcov-reporter-action@v0.3.1
+uses: j-g00da/lcov-action@v0.3.1
 with:
   lcov-file: ./coverage/lcov.info
 ```
 
 ## Acknowledgements
 
-The initial code is based on [ziishaned/jest-reporter-action](https://github.com/ziishaned/jest-reporter-action).
+`lcov-action` was forked from [romeovs/lcov-reporter-action](https://github.com/romeovs/lcov-reporter-action)
+(which was based on [ziishaned/jest-reporter-action](https://github.com/ziishaned/jest-reporter-action)) in 2025.
 
 Changed file retrieval based on [jitterbit/get-changed-files](https://github.com/jitterbit/get-changed-files).

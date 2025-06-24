@@ -1,6 +1,6 @@
 name: Code Coverage Report
 description: Comments a pull request with the code coverage
-author: Romeo Van Snick
+author: Jagoda Ślązak
 branding:
   icon: check-square
   color: green
