@@ -1,6 +1,7 @@
 import { promises as fs } from "fs"
 import core from "@actions/core"
-import { GitHub, context } from "@actions/github"
+import { context } from "@actions/github"
+import { GitHub } from "@actions/github/lib/utils"
 import path from "path"
 
 import { parse } from "./lcov"
