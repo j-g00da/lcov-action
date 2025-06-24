@@ -1,10 +1,10 @@
 {
-	"name": "lcov-reporter-action",
+	"name": "lcov-action",
 	"version": "0.2.19",
 	"description": "Comments a pull request with the lcov code coverage",
 	"license": "MIT",
-	"author": "Romeo Van Snick",
-	"repository": "https://github.com/romeovs/lcov-reporter-action",
+	"author": "Jagoda Ślązak",
+	"repository": "https://github.com/j-g00da/lcov-action",
 	"keywords": [
 		"actions",
 		"pull-request",
