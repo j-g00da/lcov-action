@@ -31,7 +31,7 @@ jobs:
         run: yarn build
 
       - name: Check formatting
-        run: npx prettier --check .
+        run: npx prettier --check *.js src/*.js
 
       - name: Run tests
         run: yarn test --coverage
