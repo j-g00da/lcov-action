@@ -9,7 +9,7 @@ export function comment(lcov, options) {
 		options.base
 			? `Coverage after merging ${b(options.head)} into ${b(
 					options.base,
-			  )} will be`
+				)} will be`
 			: `Coverage for this commit`,
 		table(tbody(tr(th(percentage(lcov).toFixed(2), "%")))),
 		"\n\n",
@@ -40,7 +40,7 @@ export function diff(lcov, before, options) {
 		options.base
 			? `Coverage after merging ${b(options.head)} into ${b(
 					options.base,
-			  )} will be`
+				)} will be`
 			: `Coverage for this commit`,
 		table(
 			tbody(

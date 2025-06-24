@@ -1,7 +1,7 @@
 import { tabulate } from "./tabulate"
 import { th, tr, td, table, tbody, a, b, span, fragment } from "./html"
 
-test("tabulate should generate a correct table", function() {
+test("tabulate should generate a correct table", function () {
 	const data = [
 		{
 			file: "/files/project/index.js",
@@ -207,7 +207,7 @@ test("tabulate should generate a correct table", function() {
 	expect(tabulate(data, options)).toBe(html)
 })
 
-test("filtered tabulate should generate a correct table with only changed files", function() {
+test("filtered tabulate should generate a correct table with only changed files", function () {
 	const data = [
 		{
 			file: "/files/project/index.js",
@@ -368,7 +368,7 @@ test("filtered tabulate should generate a correct table with only changed files"
 	expect(tabulate(data, options)).toBe(html)
 })
 
-test("filtered tabulate should fix backwards slashes in filenames", function() {
+test("filtered tabulate should fix backwards slashes in filenames", function () {
 	const data = [
 		{
 			file: "\\files\\project\\index.js",
