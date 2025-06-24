@@ -38,3 +38,8 @@ jobs:
         with:
           name: coverage-report
           path: coverage
+
+      - name: LCOV report
+        uses: j-g00da/lcov-action@v0.5.0-alpha.0
+        with:
+          lcov-file: ./coverage/lcov.info
